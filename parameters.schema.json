@@ -1,0 +1,308 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/parameters.schema.json",
+  "title": "Parameters",
+  "description": "Parameters used in the scripts",
+  "type": "object",
+  "properties": {
+    "Network": {
+      "type": "object",
+      "properties": {
+        "Name": {
+          "type": "string",
+          "description": "Name of the virtual network"
+        },
+        "ID": {
+          "type": "string",
+          "description": "Network ID in CIDR notation"
+        },
+        "PrefixLength": {
+          "type": "integer",
+          "description": "Prefix length for the subnet"
+        },
+        "Gateway": {
+          "type": "string",
+          "description": "Gateway IP address"
+        },
+        "DNS": {
+          "type": "object",
+          "properties": {
+            "ServerAddresses": {
+              "type": ["string", "array"],
+              "items": {
+                "type": "string"
+              },
+              "description": "DNS server addresses"
+            },
+            "Suffix": {
+              "type": "string",
+              "description": "DNS suffix"
+            }
+          },
+          "required": ["ServerAddresses", "Suffix"]
+        }
+      },
+      "required": ["Name", "ID", "PrefixLength", "Gateway", "DNS"]
+    },
+    "Management": {
+      "type": "object",
+      "properties": {
+        "Account": {
+          "type": "object",
+          "properties": {
+            "Name": {
+              "type": ["string", "null"],
+              "description": "Username for the management account"
+            },
+            "Password": {
+              "type": ["string", "null"],
+              "description": "Password for the management account"
+            },
+            "Type": {
+              "type": ["string", "null"],
+              "enum": ["gMSA", "user", "local", null],
+              "description": "Type of account: gMSA, user, local, or null"
+            },
+            "Description": {
+              "type": ["string", null],
+              "description": "Description of the account purpose"
+            }
+          },
+          "required": ["Name", "Password", "Type", "Description"]
+        },
+        "Nodes": {
+          "type": ["array", null],
+          "items": {
+            "type": ["string"]
+          },
+          "description": "List of management node names"
+        }
+      },
+      "required": ["Account", "Nodes"]
+    },
+    "WSFC": {
+      "type": "object",
+      "properties": {
+        "Name": {
+          "type": "string",
+          "description": "Name of the WSFC cluster"
+        },
+        "IP": {
+          "type": "string",
+          "description": "Cluster IP address"
+        },
+        "Nodes": {
+          "type": ["array", null],
+          "items": {
+            "type": "object",
+            "properties": {
+              "Name": {
+                "type": ["string"],
+                "description": "Node name"
+              },
+              "IP": {
+                "type": ["string"],
+                "description": "Node IP address"
+              }
+            },
+            "required": ["Name", "IP"]
+          },
+          "description": "List of WSFC cluster nodes"
+        },
+        "ServiceAccount": {
+          "type": "object",
+          "properties": {
+            "Name": {
+              "type": ["string", null],
+              "description": "Username for the WSFC service account"
+            },
+            "Password": {
+              "type": ["string", null],
+              "description": "Password for the WSFC service account"
+            },
+            "Type": {
+              "type": ["string", null],
+              "enum": ["gMSA", "user", null],
+              "description": "Type of account: gMSA, user, or null"
+            },
+            "Description": {
+              "type": ["string", null],
+              "description": "Description of the account purpose"
+            }
+          },
+          "required": ["Name", "Password", "Type", "Description"]
+        },
+        "FileWitness": {
+          "type": ["object", null],
+          "properties": {
+            "Path": {
+              "type": ["string", null],
+              "description": "Path to the file share witness"
+            },
+            "Account": {
+              "type": ["object", null],
+              "properties": {
+                "Name": {
+                  "type": ["string", null],
+                  "description": "Username for the file witness account"
+                },
+                "Password": {
+                  "type": ["string", null],
+                  "description": "Password for the file witness account"
+                },
+                "Type": {
+                  "type": ["string", null],
+                  "enum": ["gMSA", "user",  null,  "#none"],
+                  "description": "Type of account: gMSA, user, none, or null"
+                }
+              },
+              "required": ["Name", "Password", "Type"]
+            }
+          },
+          "required": ["Path", "Account"]
+        }
+      },
+      "required": ["Name", "IP", "Nodes", "ServiceAccount", "FileWitness"]
+    }
+  },
+  "SQL": {
+    "type": "object",
+    "properties": {
+      "Version": {
+        "type": "string",
+        "enum": ["2019", "2022"],
+        "description": "SQL Server version"
+      },
+      "ServiceAccount": {
+        "type": "object",
+        "properties": {
+          "Name": {
+            "type": ["string", null],
+            "description": "Username for the SQL service account"
+          },
+          "Password": {
+            "type": ["string", null],
+            "description": "Password for the SQL service account"
+          },
+          "Type": {
+            "type": ["string", null],
+            "enum": ["gMSA", "user", null],
+            "description": "Type of account: gMSA, user, or null"
+          },
+          "Description": {
+            "type": ["string", null],
+            "description": "Description of the account purpose"
+          }
+        },
+        "required": ["Name", "Password", "Type", "Description"]
+      },
+      "Database": {
+        "type": ["array", null],
+        "items": {
+          "type": "object",
+          "properties": {
+            "Name": {
+              "type": "string",
+              "description": "Name of the database"
+            },
+            "DataDirectory": {
+              "type": ["string", null],
+              "description": "Path to the database data files"
+            },
+            "LogDirectory": {
+              "type": ["string", null],
+              "description": "Path to the database log files"
+            },
+            "BackupDirectory": {
+              "type": ["string", null],
+              "description": "Path to the database backup files"
+            }
+          },
+          "required": ["Name", "DataDirectory", "LogDirectory", "BackupDirectory"]
+        }
+      },
+      "MasterKeyPassword": {
+        "type": ["string", null],
+        "description": "Password for the database master key"
+      },
+      "CertificatePassword": {
+        "type": ["string", null],
+        "description": "Password for the database encryption certificate"
+      },
+      "CertficateBackupPath": {
+        "type": ["string", null],
+        "description": "Path to backup the database encryption certificate"
+      },
+      "Instance_Login_Postfix": {
+        "type": ["string", null],
+        "description": "Postfix for instance logins"
+      },
+      "User_Login_Postfix": {
+        "type": ["string", null],
+        "description": "Postfix for user logins"
+      },
+      "CertificateValidityInDays": {
+        "type": "integer",
+        "description": "Validity period of the encryption certificate in days"
+      },
+      "AvailabilityGroup": {
+        "type": "object",
+        "properties": {
+          "Name": {
+            "type": "string",
+            "description": "Name of the availability group"
+          },
+          "Endpoint": {
+            "type": "object",
+            "properties": {
+              "Name": {
+                "type": "string",
+                "description": "Name of the availability group listener"
+              },
+              "Port": {
+                "type": "integer",
+                "description": "Port number for the availability group listener"
+              },
+              "AvailabilityMode": {
+                "type": "string",
+                "enum": ["SYNCHRONOUS_COMMIT", "ASYNCHRONOUS_COMMIT"],
+                "description": "Availability mode for the availability group"
+              },
+              "FailoverMode": {
+                "type": "string",
+                "enum": ["AUTOMATIC", "MANUAL"],
+                "description": "Failover mode for the availability group"
+              },
+              "SeedingMode": {
+                "type": "string",
+                "enum": ["AUTOMATIC", "MANUAL"],
+                "description": "Seeding mode for the availability group"
+              }
+            },
+            "required": ["Name", "Port", "AvailabilityMode", "FailoverMode", "SeedingMode"]
+          },
+          "Listener": {
+            "type": "object",
+            "properties": {
+              "Name": {
+                "type": "string",
+                "description": "Name of the availability group listener"
+              },
+              "IP": {
+                "type": "string",
+                "description": "IP address of the availability group listener"
+              },
+              "Port": {
+                "type": "integer",
+                "description": "Port number for the availability group listener"
+              }
+            },
+            "required": ["Name", "IP", "Port"]
+          }
+        },
+        "required": ["Name", "Endpoint", "Listener"]
+      }
+    },
+    "required": ["Version", "ServiceAccount", "Database", "MasterKeyPassword", "CertificatePassword", "CertficateBackupPath", "Instance_Login_Postfix", "User_Login_Postfix", "CertificateValidityInDays", "AvailabilityGroup"]
+  }
+}
