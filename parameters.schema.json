@@ -59,9 +59,9 @@
               "description": "Password for the management account"
             },
             "Type": {
-              "type": ["string", null],
-              "enum": ["gMSA", "user", null],
-              "description": "Type of account: gMSA, user, or \"\""
+              "type": ["string", "none"],
+              "enum": ["gMSA", "user", "none"],
+              "description": "Type of account: gMSA, user, or none"
             },
             "Description": {
               "type": ["string", null],
@@ -121,16 +121,16 @@
               "description": "Password for the WSFC service account"
             },
             "Type": {
-              "type": ["string", null],
-              "enum": ["gMSA", "user", null],
-              "description": "Type of account: gMSA, user, or \"\""
+              "type": ["string", "none"],
+              "enum": ["gMSA", "user", "none"],
+              "description": "Type of account: gMSA, user, or none"
             },
             "Description": {
               "type": ["string", null],
               "description": "Description of the account purpose"
             }
           },
-          "required": ["Name", "Password", "Type", "Description"]
+          "required": ["Type"]
         },
         "FileWitness": {
           "type": ["object", null],
@@ -151,9 +151,9 @@
                   "description": "Password for the file witness account"
                 },
                 "Type": {
-                  "type": ["string", null],
-                  "enum": ["gMSA", "user", null],
-                  "description": "Type of account: gMSA, user or \"\""
+                  "type": ["string", "none"],
+                  "enum": ["gMSA", "user", "none"],
+                  "description": "Type of account: gMSA, user or none"
                 },
                 "Description": {
                     "type": ["string", null],
