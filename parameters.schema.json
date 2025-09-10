@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://example.com/parameters.schema.json",
+  "$id": "https://peppekerstens.github.io/jsonschema/parameters.schema.json",
   "title": "Parameters",
   "description": "Parameters used in the scripts",
   "type": "object",
@@ -306,3 +306,4 @@
     "required": ["Version", "ServiceAccount", "Database", "MasterKeyPassword", "CertificatePassword", "CertficateBackupPath", "Instance_Login_Postfix", "User_Login_Postfix", "CertificateValidityInDays", "AvailabilityGroup"]
   }
 }
+
