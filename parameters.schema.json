@@ -51,24 +51,24 @@
           "type": "object",
           "properties": {
             "Name": {
-              "type": ["string", "null"],
+              "type": ["string", null],
               "description": "Username for the management account"
             },
             "Password": {
-              "type": ["string", "null"],
+              "type": ["string", null],
               "description": "Password for the management account"
             },
             "Type": {
-              "type": ["string", "null"],
-              "enum": ["gMSA", "user", "local", null],
-              "description": "Type of account: gMSA, user, local, or null"
+              "type": ["string", null],
+              "enum": ["gMSA", "user", null],
+              "description": "Type of account: gMSA, user, or \"\""
             },
             "Description": {
               "type": ["string", null],
               "description": "Description of the account purpose"
             }
           },
-          "required": ["Name", "Password", "Type", "Description"]
+          "required": ["Type"]
         },
         "Nodes": {
           "type": ["array", null],
@@ -123,7 +123,7 @@
             "Type": {
               "type": ["string", null],
               "enum": ["gMSA", "user", null],
-              "description": "Type of account: gMSA, user, or null"
+              "description": "Type of account: gMSA, user, or \"\""
             },
             "Description": {
               "type": ["string", null],
@@ -152,11 +152,15 @@
                 },
                 "Type": {
                   "type": ["string", null],
-                  "enum": ["gMSA", "user",  null,  "#none"],
-                  "description": "Type of account: gMSA, user, none, or null"
+                  "enum": ["gMSA", "user", null],
+                  "description": "Type of account: gMSA, user or \"\""
+                },
+                "Description": {
+                    "type": ["string", null],
+                    "description": "Description of the account purpose"
                 }
               },
-              "required": ["Name", "Password", "Type"]
+              "required": ["Type"]
             }
           },
           "required": ["Path", "Account"]
@@ -187,14 +191,14 @@
           "Type": {
             "type": ["string", null],
             "enum": ["gMSA", "user", null],
-            "description": "Type of account: gMSA, user, or null"
+            "description": "Type of account: gMSA, user, or \"\""
           },
           "Description": {
             "type": ["string", null],
             "description": "Description of the account purpose"
           }
         },
-        "required": ["Name", "Password", "Type", "Description"]
+        "required": ["Type"]
       },
       "Database": {
         "type": ["array", null],
@@ -306,5 +310,3 @@
     "required": ["Version", "ServiceAccount", "Database", "MasterKeyPassword", "CertificatePassword", "CertficateBackupPath", "Instance_Login_Postfix", "User_Login_Postfix", "CertificateValidityInDays", "AvailabilityGroup"]
   }
 }
-
-
